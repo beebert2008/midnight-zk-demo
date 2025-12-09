@@ -1,14 +1,16 @@
 async function generateHash() {
-  const secret = document.getElementById("secret").value;
+    const secretInput = document.getElementById("secret");
+    const hashOutput = document.getElementById("hash");
 
-  const hash = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(secret)
-  );
+    const secret = secretInput.value;
 
-  const hashHex = Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
+    if (!secret) {
+        hashOutput.innerText = "Please enter a number.";
+        return;
+    }
 
-  document.getElementById("hash").innerText = hashHex;
+    // Simple fake hash (for demo)
+    const hash = "0x" + BigInt(secret * 123456789n).toString(16);
+
+    hashOutput.innerText = hash;
 }
