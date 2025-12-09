@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple ZK-Proof</title>
+</head>
+<body>
+  <h2>Generate a Poseidon Hash</h2>
+
+  <input id="secret" type="number" placeholder="Enter secret number">
+  <button onclick="generateHash()">Generate Hash</button>
+
+  <p><b>Hash:</b> <span id="hash"></span></p>
+
+  <script>
+    async function generateHash() {
+      const secret = document.getElementById("secret").value;
+
+      // Simple hash for demo (not real Poseidon on browser)
+      const hash = await crypto.subtle.digest("SHA-256",
+        new TextEncoder().encode(secret));
+
+      const hashHex = Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+
+      document.getElementById("hash").innerText = hashHex;
+    }
+  </script>
+</body>
+</html>
